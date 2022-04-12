@@ -6,9 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olehhapuk/fe_js_advanced-react.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olehhapuk/fe_js_advanced-react/issues"
+  },
+  "homepage": "https://github.com/olehhapuk/fe_js_advanced-react#readme",
   "dependencies": {
-    "commander": "^9.1.0"
+    "commander": "^9.1.0",
+    "nanoid": "^3.3.2"
   }
 }
