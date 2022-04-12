@@ -8,11 +8,11 @@
 
 ## Встановлення oh-my-posh на Windows(для інформації про гіт репо в терміналі)
 1. В терміналі пишемо команди
-    - 'Install-Module oh-my-posh -Scope CurrentUser'
+    - `Install-Module oh-my-posh -Scope CurrentUser`
     - `code $PROFILE`
-2. У файлі що відкрився пишемо 
-  `Import-Module oh-my-posh
-  Set-Theme robbyrussell`
+2. У файлі що відкрився пишемо дві команди
+  `Import-Module oh-my-posh`
+  `Set-Theme robbyrussell`
 3. За бажанням тему до вподоби можна вибрати ось тут - [Oh My Posh Themes](https://ohmyposh.dev/docs/themes)
 4. Зберігаємо файл
 5. Встановлюємо шрифт з підтримкою іконок(DroidSansMono хороший) - [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
