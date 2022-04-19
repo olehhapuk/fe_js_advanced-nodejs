@@ -1,3 +1,9 @@
+## Код з занять
+
+1. [Вступ у NodeJS, консольні програми](https://github.com/olehhapuk/fe_js_advanced-nodejs)
+2. [HTTP Сервер на NodeJS](https://github.com/olehhapuk/fe_js_advanced-nodejs/tree/02_http-server)
+3. [Фреймворк Express](https://github.com/olehhapuk/fe_js_advanced-nodejs/tree/03_express)
+
 ## Встановлення Windows Terminal
 
 1. Переходимо сюди і встановлюємо - [Windows Terminal](https://www.microsoft.com/uk-ua/p/windows-terminal/9n0dx20hk701?rtc=1&activetab=pivot:overviewtab)
@@ -7,12 +13,13 @@
 5. Зберігаємо зміни і користуємось
 
 ## Встановлення oh-my-posh на Windows(для інформації про гіт репо в терміналі)
+
 1. В терміналі пишемо команди
-    - `Install-Module oh-my-posh -Scope CurrentUser`
-    - `code $PROFILE`
+   - `Install-Module oh-my-posh -Scope CurrentUser`
+   - `code $PROFILE`
 2. У файлі що відкрився пишемо дві команди
-  `Import-Module oh-my-posh`
-  `Set-Theme robbyrussell`
+   `Import-Module oh-my-posh`
+   `Set-Theme robbyrussell`
 3. За бажанням тему до вподоби можна вибрати ось тут - [Oh My Posh Themes](https://ohmyposh.dev/docs/themes)
 4. Зберігаємо файл
 5. Встановлюємо шрифт з підтримкою іконок(DroidSansMono хороший) - [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
