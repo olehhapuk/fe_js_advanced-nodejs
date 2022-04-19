@@ -18,6 +18,9 @@
     "url": "https://github.com/olehhapuk/fe_js_advanced-react/issues"
   },
   "homepage": "https://github.com/olehhapuk/fe_js_advanced-react#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
   "devDependencies": {
     "nodemon": "^2.0.15"
   }
