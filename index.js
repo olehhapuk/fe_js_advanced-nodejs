@@ -1,31 +1,33 @@
-const { Command } = require('commander');
-const { register, login } = require('./usersController');
+const http = require('http');
+const fs = require('fs').promises;
+const path = require('path');
 
-const program = new Command();
+const PORT = 5000;
 
-program
-  .option('-a, --action <type>', 'User action')
-  .option('-u, --username <type>', 'Username')
-  .option('-p, --password <type>', 'Password');
+const contentType = {
+  '.html': 'text/html',
+  '.css': 'text/css',
+  '.js': 'text/javascript',
+};
 
-program.parse(process.argv);
-
-const args = program.opts();
-
-main(args);
-
-function main({ action, username, password }) {
-  switch (action) {
-    case 'register':
-      register(username, password);
-      break;
-
-    case 'login':
-      login(username, password);
-      break;
-
-    default:
-      console.log('This action is not supported');
-      break;
+/**
+ * req: request(запит)
+ * res: response(відповідь)
+ */
+const server = http.createServer(async (req, res) => {
+  let fileName = req.url.substring(1);
+  if (req.url === '/') {
+    fileName = 'index.html';
   }
-}
+
+  const ext = path.extname(fileName);
+  res.setHeader('Content-Type', contentType[ext] || 'text/plain');
+
+  const filePath = path.join(process.cwd(), fileName);
+  const data = await fs.readFile(filePath);
+
+  res.end(data);
+});
+
+// http://localhost:5000
+server.listen(PORT);
