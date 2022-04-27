@@ -3,6 +3,7 @@
 1. [Вступ у NodeJS, консольні програми](https://github.com/olehhapuk/fe_js_advanced-nodejs)
 2. [HTTP Сервер на NodeJS](https://github.com/olehhapuk/fe_js_advanced-nodejs/tree/02_http-server)
 3. [Фреймворк Express](https://github.com/olehhapuk/fe_js_advanced-nodejs/tree/03_express)
+4. [Створюємо простий сайт з використанням EJS](https://github.com/olehhapuk/fe_js_advanced-nodejs/tree/04_ejs)
 
 ## Встановлення Windows Terminal
 
