@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/olehhapuk/fe_js_advanced-react#readme",
   "dependencies": {
+    "ejs": "^3.1.7",
     "express": "^4.17.3"
   },
   "devDependencies": {
