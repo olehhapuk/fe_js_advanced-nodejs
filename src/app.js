@@ -5,6 +5,7 @@ const volleyball = require('volleyball');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const session = require('express-session');
 
 const app = express();
 
@@ -17,36 +18,45 @@ app.use(volleyball);
 // app.use(morgan('common'));
 app.use(compression());
 app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET,
+    // name: 'session-id',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24, // 24 hours
+    },
+  })
+);
 
 // GET / -> index.ejs
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', {
+    username: req.session.username,
+  });
 });
 
-app.get('/set-cookie', (req, res) => {
-  res.cookie('message', 'Hello, World from cookies', {
-    secure: process.env.NODE_ENV === 'production',
-    signed: true,
-    httpOnly: true,
-    maxAge: 1000 * 60 * 60,
-  });
-  res.cookie('non secure message', 'Hello, World from cookies', {
-    secure: process.env.NODE_ENV === 'production',
-    httpOnly: true,
-    maxAge: 1000 * 60 * 60,
-  });
+// GET /post
+app.get('/post', (req, res) => {
+  // views
+  req.session.views =
+    req.session.views !== undefined ? req.session.views + 1 : 1;
 
-  res.redirect('/');
+  res.render('post', {
+    views: req.session.views,
+  });
 });
 
-app.get('/unset-cookie', (req, res) => {
-  console.log(req.cookies, req.signedCookies);
+// GET /login
+app.get('/login', (req, res) => {
+  res.render('login');
+});
 
-  console.log('message: ', req.signedCookies.message);
-  console.log('non secure message: ', req.cookies['non secure message']);
-
-  res.clearCookie('message');
-  res.clearCookie('non secure message');
+// POST /login
+app.post('/login', (req, res) => {
+  req.session.username = req.body.username;
   res.redirect('/');
 });
 
