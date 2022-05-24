@@ -24,14 +24,29 @@ app.get('/', (req, res) => {
 });
 
 app.get('/set-cookie', (req, res) => {
-  res.cookie('message', 'Hello, World from cookies');
+  res.cookie('message', 'Hello, World from cookies', {
+    secure: process.env.NODE_ENV === 'production',
+    signed: true,
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60,
+  });
+  res.cookie('non secure message', 'Hello, World from cookies', {
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60,
+  });
+
   res.redirect('/');
 });
 
 app.get('/unset-cookie', (req, res) => {
-  console.log(req.cookies);
-  console.log('message: ', req.cookies.message);
+  console.log(req.cookies, req.signedCookies);
+
+  console.log('message: ', req.signedCookies.message);
+  console.log('non secure message: ', req.cookies['non secure message']);
+
   res.clearCookie('message');
+  res.clearCookie('non secure message');
   res.redirect('/');
 });
 
