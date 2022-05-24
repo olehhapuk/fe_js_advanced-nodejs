@@ -1,38 +1,41 @@
 const express = require('express');
 require('dotenv').config();
 const volleyball = require('volleyball');
-// const morgan = require('morgan');
 const compression = require('compression');
-const cookieParser = require('cookie-parser');
 const path = require('path');
+// Імпортувати cookie-parser
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(process.cwd(), 'views'));
-// console.log(path.join(process.cwd(), 'views'));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(volleyball);
-// app.use(morgan('common'));
 app.use(compression());
+// Підключити cookiesParser
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
-// GET / -> index.ejs
 app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/set-cookie', (req, res) => {
-  res.cookie('message', 'Hello, World from cookies');
-  res.redirect('/');
+app.get('/login', (req, res) => {
+  res.render('login');
 });
 
-app.get('/unset-cookie', (req, res) => {
-  console.log(req.cookies);
-  console.log('message: ', req.cookies.message);
-  res.clearCookie('message');
-  res.redirect('/');
+app.get('/profile', (req, res) => {
+  const username = req.cookies.username;
+  res.render('profile', {
+    username: username, // username потрібно взяти з куків
+  });
+});
+
+app.post('/login', (req, res) => {
+  // Зберегти в куки username з req.body.username
+  res.cookie('username', req.body.username);
+  res.redirect('/profile');
 });
 
 module.exports = app;
