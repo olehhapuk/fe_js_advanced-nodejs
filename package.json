@@ -1,30 +1,25 @@
 {
-  "name": "repeat",
+  "name": "fe_js_advanced_nodejs",
   "version": "1.0.0",
-  "description": "Repeat node js and express",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "start:dev": "nodemon index.js"
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/olehhapuk/fe_js_advanced-react.git"
   },
-  "author": "oleh",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/olehhapuk/fe_js_advanced-react/issues"
   },
   "homepage": "https://github.com/olehhapuk/fe_js_advanced-react#readme",
   "dependencies": {
-    "compression": "^1.7.4",
-    "cookie-parser": "^1.4.6",
-    "dotenv": "^16.0.1",
-    "ejs": "^3.1.7",
     "express": "^4.18.1",
-    "express-session": "^1.17.3",
-    "morgan": "^1.10.0",
+    "nanoid": "^3.3.4",
     "volleyball": "^1.5.1"
   },
   "devDependencies": {
