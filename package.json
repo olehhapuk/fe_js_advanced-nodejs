@@ -18,9 +18,12 @@
   },
   "homepage": "https://github.com/olehhapuk/fe_js_advanced-react#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "nanoid": "^3.3.4",
-    "volleyball": "^1.5.1"
+    "volleyball": "^1.5.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
