@@ -1,13 +1,12 @@
-- [x] Ініціалізація проекту, встановити пакети(express, nanoid@3, yup, volleyball, dotenv, nodemon), налаштувати скрипти для запуску
-- [x] Створити сервер за допомогою express
-- [x] Підключити і налаштувати встановлені пакети
-- [x] Створити вкладений роутер для завдань
-- [] Створити роути для операцій з завданнями
-  - [x] Створити завдання
-  - [x] Отримати всі завдання
-  - [x] Отримати одне завдання по id
-  - [x] Оновити завдання по id
-  - [x] Видалити завдання по id
-  - [x] Оновити статус завдання по id
-- [x] Додати мідлвер для валідації даних запитів
-- [] Додати глобальний обробник помилок
+### Update operators
+
+- [MongoDB Array Update Operators](https://www.mongodb.com/docs/manual/reference/operator/update-array/)
+
+### Query operators
+
+- [MongoDB Comparison Operators](https://www.mongodb.com/docs/manual/reference/operator/query-comparison/)
+- [MongoDB Logical Operators](https://www.mongodb.com/docs/manual/reference/operator/query-logical/)
+
+### Other
+
+- [Mongoose population](https://mongoosejs.com/docs/populate.html#population)

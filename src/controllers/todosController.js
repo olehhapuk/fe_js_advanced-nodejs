@@ -12,7 +12,36 @@ exports.createTodo = async (req, res, next) => {
 
 exports.getAllTodos = async (req, res, next) => {
   try {
-    const todos = await Todo.find();
+    let { page, search } = req.query;
+
+    if (!page) {
+      page = 1;
+    } else {
+      page = +page;
+    }
+
+    const perPage = 2;
+
+    const todos = await Todo.find(
+      {
+        $or: [
+          {
+            text: {
+              $regex: search,
+              $options: 'i',
+            },
+          },
+          {
+            priority: 6,
+          },
+        ],
+      },
+      null,
+      {
+        limit: perPage,
+        skip: (page - 1) * perPage,
+      }
+    );
     res.json(todos);
   } catch (error) {
     next(error);
@@ -72,7 +101,7 @@ exports.deleteTodo = async (req, res, next) => {
       return;
     }
 
-    const response = await Todo.findByIdAndRemove(id);
+    const response = await Todo.findByIdAndDelete(id);
     res.json(response);
   } catch (error) {
     next(error);
@@ -93,6 +122,102 @@ exports.updateTodoStatus = async (req, res, next) => {
     await todo.save();
 
     res.json(todo);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.addTagsToSet = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { tags } = req.body;
+
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      id,
+      {
+        $addToSet: {
+          tags: {
+            $each: tags,
+          },
+        },
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.json(updatedTodo);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.pushTags = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { tags } = req.body;
+
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      id,
+      {
+        $push: {
+          tags: {
+            $each: tags,
+          },
+        },
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.json(updatedTodo);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.popTags = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { order } = req.body;
+
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      id,
+      {
+        $pop: {
+          tags: order,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.json(updatedTodo);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.pullAllTags = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { tags } = req.body;
+
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      id,
+      {
+        $pullAll: {
+          tags,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.json(updatedTodo);
   } catch (error) {
     next(error);
   }
