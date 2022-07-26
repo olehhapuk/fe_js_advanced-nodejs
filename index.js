@@ -1,6 +1,9 @@
-// import app from './src/app';
 const app = require('./src/app');
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server started`);
-});
+const port = process.env.PORT;
+if (!port) {
+  console.log('No port provided');
+  return;
+}
+
+app.listen(port, () => console.log(`Server is running on port ${port}`));

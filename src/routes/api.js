@@ -1,10 +1,9 @@
 const express = require('express');
 
-const todosRouter = require('./todos');
+const actorsRouter = require('./actorsRouter');
 
 const router = express.Router();
 
-// http://localhost:5000/api/v1/todos
-router.use('/todos', todosRouter);
+router.use('/actors', actorsRouter);
 
 module.exports = router;

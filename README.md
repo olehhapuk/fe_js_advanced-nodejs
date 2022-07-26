@@ -1,12 +1,8 @@
-### Update operators
+# Express Mongoose Template
 
-- [MongoDB Array Update Operators](https://www.mongodb.com/docs/manual/reference/operator/update-array/)
+## Getting started
 
-### Query operators
-
-- [MongoDB Comparison Operators](https://www.mongodb.com/docs/manual/reference/operator/query-comparison/)
-- [MongoDB Logical Operators](https://www.mongodb.com/docs/manual/reference/operator/query-logical/)
-
-### Other
-
-- [Mongoose population](https://mongoosejs.com/docs/populate.html#population)
+- Create copy of .env.example and rename it to .env
+- Provide required data
+- Install required packages using command `npm install`
+- Run command `npm run dev` to start the server
