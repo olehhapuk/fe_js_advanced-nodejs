@@ -2,8 +2,41 @@ const { Actor } = require('../models');
 
 exports.search = async (req, res, next) => {
   try {
-    const allActors = await Actor.find();
-    res.json(allActors);
+    let { q, page, perPage } = req.query;
+
+    if (!page) {
+      page = 1;
+    } else {
+      page = +page;
+    }
+
+    if (!perPage) {
+      perPage = 12;
+    } else {
+      perPage = +perPage;
+    }
+
+    const searchFilter = {
+      name: {
+        $regex: q,
+        $options: 'i',
+      },
+    };
+
+    const allActors = await Actor.find(searchFilter, null, {
+      limit: perPage,
+      skip: (page - 1) * perPage,
+    });
+
+    const actorsCount = await Actor.count(searchFilter);
+
+    res.json({
+      items: allActors,
+      count: actorsCount,
+      page,
+      perPage,
+      pagesCount: Math.ceil(actorsCount / perPage),
+    });
   } catch (error) {
     next(error);
   }
