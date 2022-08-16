@@ -5,8 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const apiRouter = require('./routes/api');
-const errorHandler = require('./middlewares/errorHandler');
+const apiRouter = require('./routes/apiRouter');
 
 const app = express();
 
@@ -25,11 +24,5 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1', apiRouter);
-
-// app.use((req, res, next) => {
-//   res.render('404');
-// });
-
-app.use(errorHandler);
 
 module.exports = app;

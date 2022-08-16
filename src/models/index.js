@@ -1,6 +1,3 @@
 module.exports = {
-  Actor: require('./Actor'),
-  Movie: require('./Movie'),
+  User: require('./User'),
 };
-
-// export { default as Actor } from './Actor';
