@@ -16,7 +16,7 @@ exports.register = async (req, res, next) => {
       return;
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const hashedPassword = await User.hashPassword(password);
 
     const user = await User.create({
       ...req.body,
@@ -47,7 +47,7 @@ exports.login = async (req, res, next) => {
       return;
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await user.validatePassword(password);
     if (!isPasswordValid) {
       res.status(422).send('Wrong credentials');
       return;

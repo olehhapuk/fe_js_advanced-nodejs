@@ -1,27 +1,19 @@
-const { User } = require('../models');
-const jwt = require('../utils/jwt');
+const passport = require('passport');
 
-module.exports = async (req, res, next) => {
-  try {
-    // Bearer token
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
-      res.status(401).send('Unauthorized');
-      return;
+module.exports = (req, res, next) => {
+  passport.authenticate(
+    'jwt',
+    {
+      session: false,
+    },
+    (error, user) => {
+      if (error || !user) {
+        res.status(401).send('Unauthorized');
+        return;
+      }
+
+      req.user = user;
+      next();
     }
-
-    const token = authHeader.slice(7);
-    const decoded = jwt.verify(token);
-
-    const user = await User.findById(decoded._id);
-    if (!user) {
-      res.status(401).send('Unauthorized');
-      return;
-    }
-
-    req.user = user;
-    next();
-  } catch (error) {
-    res.status(401).send('Unauthorized');
-  }
+  )(req, res, next);
 };
