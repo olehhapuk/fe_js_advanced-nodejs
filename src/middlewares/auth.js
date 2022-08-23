@@ -1,9 +1,9 @@
-const jwt = require('jsonwebtoken');
-
 const { User } = require('../models');
+const jwt = require('../utils/jwt');
 
 module.exports = async (req, res, next) => {
   try {
+    // Bearer token
     const authHeader = req.headers.authorization;
     if (!authHeader) {
       res.status(401).send('Unauthorized');
@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
     }
 
     const token = authHeader.slice(7);
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token);
 
     const user = await User.findById(decoded._id);
     if (!user) {
@@ -20,7 +20,6 @@ module.exports = async (req, res, next) => {
     }
 
     req.user = user;
-    // res.locals.user = user;
     next();
   } catch (error) {
     res.status(401).send('Unauthorized');
