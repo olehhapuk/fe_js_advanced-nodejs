@@ -1,73 +1,57 @@
 const bcrypt = require('bcrypt');
+const passport = require('passport');
 
 const { User } = require('../models');
-const jwt = require('../utils/jwt');
 
 exports.register = async (req, res, next) => {
   try {
-    const { username, password } = req.body;
-
-    const existingUser = await User.findOne({
-      username,
-    });
-
-    if (existingUser) {
-      res.status(422).send('Username is already taken');
-      return;
-    }
-
-    const hashedPassword = await User.hashPassword(password);
-
-    const user = await User.create({
-      ...req.body,
-      password: hashedPassword,
-    });
-
-    const token = jwt.generate(user._id);
-
-    res.json({
-      user,
-      token,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.login = async (req, res, next) => {
-  try {
-    const { username, password } = req.body;
+    const { username, password, age, description } = req.body;
 
     const user = await User.findOne({
       username,
     });
-
-    if (!user) {
-      res.status(422).send('Wrong credentials');
+    if (user) {
+      req.flash('message', 'Username is already taken');
+      res.redirect('/register');
       return;
     }
 
-    const isPasswordValid = await user.validatePassword(password);
-    if (!isPasswordValid) {
-      res.status(422).send('Wrong credentials');
-      return;
-    }
-
-    const token = jwt.generate(user._id);
-
-    res.json({
-      user,
-      token,
+    const hashedPassword = await User.hashPassword(password);
+    const newUser = await User.create({
+      username,
+      password: hashedPassword,
+      age,
+      description,
     });
+
+    res.redirect('/login');
   } catch (error) {
-    next(error);
+    console.log(error);
+    req.flash('message', error.message);
+    res.redirect('/register');
   }
 };
 
-exports.getMe = async (req, res, next) => {
-  try {
-    res.json(req.user);
-  } catch (error) {
-    next(error);
-  }
+exports.login = async (req, res, next) => {
+  passport.authenticate('local', (error, user) => {
+    if (!user || error) {
+      console.log(error);
+      req.flash('message', error ? error.message : 'Wrong credentials');
+      res.redirect('/login');
+      return;
+    }
+
+    req.logIn(user, (err) => {
+      if (err) {
+        console.log(err);
+        req.flash('message', err.message);
+        res.redirect('/login');
+        return;
+      }
+
+      res.redirect('/profile');
+    });
+  })(req, res, next);
 };
+
+exports.getMe = async (req, res, next) => {};
