@@ -3,6 +3,29 @@ const passport = require('passport');
 
 const { User } = require('../models');
 
+function login(req, res, next) {
+  passport.authenticate('local', (error, user) => {
+    if (!user || error) {
+      console.log(error);
+      req.flash('message', error ? error.message : 'Wrong credentials');
+      req.flash('message', 'test');
+      res.redirect('/login');
+      return;
+    }
+
+    req.logIn(user, (err) => {
+      if (err) {
+        console.log(err);
+        req.flash('message', err.message);
+        res.redirect('/login');
+        return;
+      }
+
+      res.redirect('/profile');
+    });
+  })(req, res, next);
+}
+
 exports.register = async (req, res, next) => {
   try {
     const { username, password, age, description } = req.body;
@@ -24,7 +47,7 @@ exports.register = async (req, res, next) => {
       description,
     });
 
-    res.redirect('/login');
+    login(req, res, next);
   } catch (error) {
     console.log(error);
     req.flash('message', error.message);
@@ -32,26 +55,17 @@ exports.register = async (req, res, next) => {
   }
 };
 
-exports.login = async (req, res, next) => {
-  passport.authenticate('local', (error, user) => {
-    if (!user || error) {
+exports.login = login;
+
+exports.logout = (req, res) => {
+  req.logout((error) => {
+    if (error) {
       console.log(error);
-      req.flash('message', error ? error.message : 'Wrong credentials');
-      res.redirect('/login');
+      req.flash('message', error.message);
+      res.redirect('/profile');
       return;
     }
 
-    req.logIn(user, (err) => {
-      if (err) {
-        console.log(err);
-        req.flash('message', err.message);
-        res.redirect('/login');
-        return;
-      }
-
-      res.redirect('/profile');
-    });
-  })(req, res, next);
+    res.redirect('/');
+  });
 };
-
-exports.getMe = async (req, res, next) => {};
