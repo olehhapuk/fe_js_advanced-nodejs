@@ -1,31 +1,14 @@
-const { Command } = require('commander');
-const { register, login } = require('./usersController');
+const app = require('./src/app');
+const mongoConnect = require('./src/config/mongoose');
 
-const program = new Command();
+const { PORT = 5000 } = process.env;
+app.listen(PORT, () => {
+  console.log(`Server is running on ${PORT}`);
 
-program
-  .option('-a, --action <type>', 'User action')
-  .option('-u, --username <type>', 'Username')
-  .option('-p, --password <type>', 'Password');
-
-program.parse(process.argv);
-
-const args = program.opts();
-
-main(args);
-
-function main({ action, username, password }) {
-  switch (action) {
-    case 'register':
-      register(username, password);
-      break;
-
-    case 'login':
-      login(username, password);
-      break;
-
-    default:
-      console.log('This action is not supported');
-      break;
-  }
-}
+  mongoConnect()
+    .then(() => console.log('DB connected'))
+    .catch((error) => {
+      console.error(error);
+      process.exit(1);
+    });
+});
