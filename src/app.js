@@ -4,7 +4,6 @@ const helmet = require('helmet');
 const cors = require('cors');
 require('dotenv').config();
 
-require('./config/db');
 require('./config/passport');
 const apiRouter = require('./routes/apiRouter');
 
