@@ -10,7 +10,9 @@ const apiRouter = require('./routes/apiRouter');
 const app = express();
 
 app.use(express.json());
-app.use(volleyball);
+if (process.env.NODE_ENV !== 'test') {
+  app.use(volleyball);
+}
 app.use(helmet());
 app.use(cors({ origin: '*' }));
 
