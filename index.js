@@ -1,31 +1,12 @@
-const { Command } = require('commander');
-const { register, login } = require('./usersController');
+const express = require('express');
+const morgan = require('morgan');
 
-const program = new Command();
+const app = express();
 
-program
-  .option('-a, --action <type>', 'User action')
-  .option('-u, --username <type>', 'Username')
-  .option('-p, --password <type>', 'Password');
+app.use(morgan('dev'));
 
-program.parse(process.argv);
+app.get('/', (req, res) => res.send('Hello, World!'));
 
-const args = program.opts();
-
-main(args);
-
-function main({ action, username, password }) {
-  switch (action) {
-    case 'register':
-      register(username, password);
-      break;
-
-    case 'login':
-      login(username, password);
-      break;
-
-    default:
-      console.log('This action is not supported');
-      break;
-  }
-}
+app.listen(5000, () => {
+  console.log('Server started');
+});

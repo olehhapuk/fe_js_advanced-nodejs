@@ -1,24 +1,29 @@
 {
-  "name": "fe_js_advanced_nodejs",
+  "name": "fe_js_advanced-nodejs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js -L"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/olehhapuk/fe_js_advanced-react.git"
+    "url": "git+https://github.com/olehhapuk/fe_js_advanced-nodejs.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/olehhapuk/fe_js_advanced-react/issues"
+    "url": "https://github.com/olehhapuk/fe_js_advanced-nodejs/issues"
   },
-  "homepage": "https://github.com/olehhapuk/fe_js_advanced-react#readme",
+  "homepage": "https://github.com/olehhapuk/fe_js_advanced-nodejs#readme",
   "dependencies": {
-    "commander": "^9.1.0",
-    "nanoid": "^3.3.2"
+    "express": "^4.18.2",
+    "mongoose": "^6.8.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
