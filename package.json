@@ -1,30 +1,17 @@
 {
   "name": "fe_js_advanced-nodejs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/olehhapuk/fe_js_advanced-nodejs.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/olehhapuk/fe_js_advanced-nodejs/issues"
-  },
-  "homepage": "https://github.com/olehhapuk/fe_js_advanced-nodejs#readme",
   "dependencies": {
-    "@prisma/client": "^4.9.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "morgan": "^1.10.0"
+    "mongoose": "^6.9.1",
+    "morgan": "^1.10.0",
+    "socket.io": "^4.6.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20",
-    "prisma": "^4.9.0"
+    "nodemon": "^2.0.20"
   }
 }
